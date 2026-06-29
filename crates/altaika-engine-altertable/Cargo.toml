@@ -1,0 +1,21 @@
+[package]
+name = "altaika-engine-altertable"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+altaika-engine = { workspace = true }
+altaika-foundation = { workspace = true }
+altaika-sql = { workspace = true }
+arrow = { workspace = true }
+arrow-flight = { workspace = true }
+async-trait = { workspace = true }
+futures = { workspace = true }
+reqwest = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+tokio = { workspace = true }
+tonic = { workspace = true }

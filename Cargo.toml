@@ -1,0 +1,47 @@
+[workspace]
+members = [
+    "crates/altaika-cli",
+    "crates/altaika-foundation",
+    "crates/altaika-sql",
+    "crates/altaika-engine",
+    "crates/altaika-engine-datafusion",
+    "crates/altaika-engine-altertable",
+]
+resolver = "2"
+
+[workspace.package]
+version = "0.0.1"
+edition = "2024"
+rust-version = "1.88"
+license = "Apache-2.0"
+repository = "https://github.com/altertable-ai/altaika"
+
+[workspace.dependencies]
+altaika-foundation = { path = "crates/altaika-foundation" }
+altaika-sql = { path = "crates/altaika-sql" }
+altaika-engine = { path = "crates/altaika-engine" }
+altaika-engine-datafusion = { path = "crates/altaika-engine-datafusion" }
+altaika-engine-altertable = { path = "crates/altaika-engine-altertable" }
+async-trait = "0.1"
+arrow = "58.3.0"
+arrow-flight = { version = "58.3.0", features = ["flight-sql", "tls-native-roots"] }
+base64 = "0.22"
+clap = { version = "4.6.1", features = ["derive", "env"] }
+clap_complete = "4.6.5"
+datafusion = "54.0.0"
+futures = "0.3"
+polyglot-sql = "0.5.10"
+parquet = "58.3.0"
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sqlparser = "0.62.0"
+thiserror = "2"
+tokio = { version = "1.52.3", features = ["macros", "rt", "rt-multi-thread", "sync"] }
+tonic = { version = "0.14", features = ["tls-native-roots"] }
+uuid = { version = "1", features = ["v4"] }
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true

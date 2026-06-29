@@ -1,0 +1,37 @@
+[package]
+name = "altaika-cli"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "altaika"
+path = "src/main.rs"
+
+[features]
+default = ["duckdb-runtime"]
+duckdb-runtime = ["dep:duckdb", "dep:sqlparser"]
+bigquery = ["duckdb-runtime"]
+
+[dependencies]
+altaika-engine = { workspace = true }
+altaika-engine-altertable = { workspace = true }
+altaika-engine-datafusion = { workspace = true }
+altaika-foundation = { workspace = true }
+altaika-sql = { workspace = true }
+arrow = { workspace = true }
+clap = { workspace = true }
+clap_complete = { workspace = true }
+datafusion = { workspace = true }
+parquet = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+sqlparser = { workspace = true, optional = true }
+tokio = { workspace = true }
+
+[target.'cfg(not(any(target_os = "wasi", target_family = "wasm")))'.dependencies]
+duckdb = { version = "~1.10504.0", default-features = false, features = ["bundled"], optional = true }
+
+[dev-dependencies]
+async-trait = { workspace = true }

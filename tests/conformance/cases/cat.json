@@ -1,0 +1,8 @@
+{
+  "command": "cat",
+  "path": "local/analytics/events",
+  "columns": ["id"],
+  "filters": ["event_name:=signup"],
+  "limit": 10,
+  "expected_kind": "rows"
+}

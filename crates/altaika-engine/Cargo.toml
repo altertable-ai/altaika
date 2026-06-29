@@ -1,0 +1,15 @@
+[package]
+name = "altaika-engine"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+altaika-foundation = { workspace = true }
+altaika-sql = { workspace = true }
+arrow = { workspace = true }
+async-trait = { workspace = true }
+futures = { workspace = true }
+serde = { workspace = true }
+thiserror = { workspace = true }

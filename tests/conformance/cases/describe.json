@@ -1,0 +1,5 @@
+{
+  "command": "describe",
+  "path": "local/analytics/events",
+  "expected_kind": "schema"
+}

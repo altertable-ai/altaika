@@ -1,0 +1,6 @@
+/target
+/.worktrees
+.DS_Store
+*.duckdb
+*.duckdb.wal
+*.rs.bk

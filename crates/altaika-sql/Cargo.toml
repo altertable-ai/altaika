@@ -1,0 +1,12 @@
+[package]
+name = "altaika-sql"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+altaika-foundation = { workspace = true }
+polyglot-sql = { workspace = true }
+serde = { workspace = true }
+thiserror = { workspace = true }
