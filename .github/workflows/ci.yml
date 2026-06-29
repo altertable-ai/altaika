@@ -1,0 +1,46 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+    branches:
+      - main
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        run: |
+          rustup toolchain install stable --profile minimal --component rustfmt --component clippy
+          rustup default stable
+
+      - name: Format
+        run: cargo fmt --check
+
+      - name: Build
+        run: cargo build --locked
+
+      - name: Test
+        run: cargo test
+
+      - name: Clippy
+        run: cargo clippy --all-targets -- -D warnings
+
+      - name: Strict clippy
+        run: cargo clippy -- -D warnings -D clippy::pedantic -D clippy::nursery
+
+      - name: Optional BigQuery ADBC feature
+        run: cargo check --features bigquery-adbc
+
+      - name: WASI feature check
+        run: |
+          rustup target add wasm32-wasip2
+          cargo check --target wasm32-wasip2 --no-default-features --features wasi

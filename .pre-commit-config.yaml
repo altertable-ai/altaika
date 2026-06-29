@@ -1,0 +1,108 @@
+default_install_hook_types:
+  - pre-commit
+  - pre-push
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-added-large-files
+        stages:
+          - pre-commit
+      - id: check-json
+        stages:
+          - pre-commit
+      - id: check-merge-conflict
+        stages:
+          - pre-commit
+      - id: check-toml
+        stages:
+          - pre-commit
+      - id: check-yaml
+        stages:
+          - pre-commit
+      - id: end-of-file-fixer
+        stages:
+          - pre-commit
+      - id: mixed-line-ending
+        args:
+          - --fix=lf
+        stages:
+          - pre-commit
+      - id: trailing-whitespace
+        stages:
+          - pre-commit
+
+  - repo: local
+    hooks:
+      - id: cargo-fmt
+        name: cargo fmt all
+        entry: cargo fmt --all --check
+        language: system
+        files: '(^src/|^tests/|Cargo\.(toml|lock)$|rust-toolchain\.toml$)'
+        pass_filenames: false
+        stages:
+          - pre-commit
+
+      - id: cargo-check-locked
+        name: cargo check locked
+        entry: cargo check --locked
+        language: system
+        files: '(^src/|^tests/|Cargo\.(toml|lock)$|rust-toolchain\.toml$)'
+        pass_filenames: false
+        stages:
+          - pre-commit
+
+      - id: cargo-clippy
+        name: cargo clippy
+        entry: cargo clippy --all-targets -- -D warnings
+        language: system
+        files: '(^src/|^tests/|Cargo\.(toml|lock)$|rust-toolchain\.toml$)'
+        pass_filenames: false
+        stages:
+          - pre-push
+
+      - id: cargo-test
+        name: cargo test
+        entry: cargo test --locked
+        language: system
+        files: '(^src/|^tests/|Cargo\.(toml|lock)$|rust-toolchain\.toml$)'
+        pass_filenames: false
+        stages:
+          - pre-push
+
+      - id: cargo-build-locked
+        name: cargo build locked
+        entry: cargo build --locked
+        language: system
+        files: '(^src/|^tests/|Cargo\.(toml|lock)$|rust-toolchain\.toml$)'
+        pass_filenames: false
+        stages:
+          - manual
+
+      - id: cargo-clippy-strict
+        name: cargo clippy strict
+        entry: cargo clippy -- -D warnings -D clippy::pedantic -D clippy::nursery
+        language: system
+        files: '(^src/|^tests/|Cargo\.(toml|lock)$|rust-toolchain\.toml$)'
+        pass_filenames: false
+        stages:
+          - manual
+
+      - id: cargo-check-bigquery-adbc
+        name: cargo check BigQuery ADBC
+        entry: cargo check --locked --features bigquery-adbc
+        language: system
+        files: '(^src/|^tests/|Cargo\.(toml|lock)$|rust-toolchain\.toml$)'
+        pass_filenames: false
+        stages:
+          - manual
+
+      - id: cargo-check-wasi
+        name: cargo check WASI
+        entry: bash -c 'rustup target add wasm32-wasip2 && cargo check --locked --target wasm32-wasip2 --no-default-features --features wasi'
+        language: system
+        files: '(^src/|^tests/|Cargo\.(toml|lock)$|rust-toolchain\.toml$)'
+        pass_filenames: false
+        stages:
+          - manual

@@ -1,0 +1,60 @@
+[package]
+name = "altaika"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.88"
+description = "AI CLI tool for DuckDB, DuckLake, and Quack workspaces"
+license = "Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/altertable-ai/altaika"
+keywords = ["duckdb", "ducklake", "quack", "cli", "agents"]
+categories = ["command-line-utilities", "database"]
+include = [
+  "/Cargo.lock",
+  "/Cargo.toml",
+  "/CHANGELOG.md",
+  "/CONTRIBUTING.md",
+  "/LICENSE",
+  "/README.md",
+  "/SECURITY.md",
+  "/docs/**",
+  "/rust-toolchain.toml",
+  "/skills/altaika/SKILL.md",
+  "/src/**",
+  "/tests/**",
+]
+
+[features]
+default = ["duckdb", "ducklake", "quack"]
+duckdb = ["dep:duckdb"]
+ducklake = ["duckdb"]
+quack = ["duckdb"]
+datafusion = []
+adbc = ["dep:adbc_core", "dep:adbc_driver_manager"]
+bigquery-adbc = ["adbc", "duckdb", "duckdb/appender-arrow"]
+altertable-platform = ["datafusion", "bigquery-adbc"]
+wasi = []
+
+[dependencies]
+adbc_core = { version = "0.23", optional = true }
+adbc_driver_manager = { version = "0.23", optional = true }
+clap = { version = "4.6.1", features = ["derive", "env"] }
+duckdb = { version = "1.10504.0", default-features = false, features = ["bundled", "json", "parquet"], optional = true }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"
+thiserror = "2"
+
+[profile.release]
+codegen-units = 1
+lto = "thin"
+panic = "abort"
+strip = "symbols"
+
+[lints.clippy]
+implicit_clone = "warn"
+needless_pass_by_value = "warn"
+redundant_clone = "warn"
+str_to_string = "warn"
+uninlined_format_args = "warn"
+use_self = "warn"

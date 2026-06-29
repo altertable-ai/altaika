@@ -1,0 +1,20 @@
+{
+  "name": "altaika",
+  "version": "0.1.0",
+  "description": "AI CLI for DuckDB, DuckLake, Quack, and optional source connectors. Local-first data workflows with JSON command output for agents.",
+  "author": {
+    "name": "Altaika contributors"
+  },
+  "repository": "https://github.com/altertable-ai/altaika",
+  "license": "Apache-2.0",
+  "keywords": [
+    "ai-cli",
+    "duckdb",
+    "ducklake",
+    "quack",
+    "datafusion",
+    "adbc",
+    "bigquery"
+  ],
+  "skills": "./skills/"
+}
